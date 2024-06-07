@@ -36,6 +36,7 @@ import com.google.common.cache.TestingRemovalListeners.QueuingRemovalListener;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.testing.NullPointerTester;
+import java.time.Duration;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -230,7 +231,7 @@ public class CacheBuilderTest extends TestCase {
 
   @GwtIncompatible // java.time.Duration
   public void testLargeDurationsAreOk() {
-    java.time.Duration threeHundredYears = java.time.Duration.ofDays(365 * 300);
+    Duration threeHundredYears = Duration.ofDays(365 * 300);
     CacheBuilder<Object, Object> builder =
         CacheBuilder.newBuilder()
             .expireAfterWrite(threeHundredYears)
@@ -251,8 +252,7 @@ public class CacheBuilderTest extends TestCase {
   public void testTimeToLive_negative_duration() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
     assertThrows(
-        IllegalArgumentException.class,
-        () -> builder.expireAfterWrite(java.time.Duration.ofSeconds(-1)));
+        IllegalArgumentException.class, () -> builder.expireAfterWrite(Duration.ofSeconds(-1)));
   }
 
   @SuppressWarnings("ReturnValueIgnored")
@@ -275,9 +275,8 @@ public class CacheBuilderTest extends TestCase {
   @GwtIncompatible // java.time.Duration
   public void testTimeToLive_setTwice_duration() {
     CacheBuilder<Object, Object> builder =
-        CacheBuilder.newBuilder().expireAfterWrite(java.time.Duration.ofHours(1));
-    assertThrows(
-        IllegalStateException.class, () -> builder.expireAfterWrite(java.time.Duration.ofHours(1)));
+        CacheBuilder.newBuilder().expireAfterWrite(Duration.ofHours(1));
+    assertThrows(IllegalStateException.class, () -> builder.expireAfterWrite(Duration.ofHours(1)));
   }
 
   public void testTimeToIdle_negative() {
@@ -293,8 +292,7 @@ public class CacheBuilderTest extends TestCase {
   public void testTimeToIdle_negative_duration() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
     assertThrows(
-        IllegalArgumentException.class,
-        () -> builder.expireAfterAccess(java.time.Duration.ofSeconds(-1)));
+        IllegalArgumentException.class, () -> builder.expireAfterAccess(Duration.ofSeconds(-1)));
   }
 
   @SuppressWarnings("ReturnValueIgnored")
@@ -317,10 +315,8 @@ public class CacheBuilderTest extends TestCase {
   @GwtIncompatible // java.time.Duration
   public void testTimeToIdle_setTwice_duration() {
     CacheBuilder<Object, Object> builder =
-        CacheBuilder.newBuilder().expireAfterAccess(java.time.Duration.ofHours(1));
-    assertThrows(
-        IllegalStateException.class,
-        () -> builder.expireAfterAccess(java.time.Duration.ofHours(1)));
+        CacheBuilder.newBuilder().expireAfterAccess(Duration.ofHours(1));
+    assertThrows(IllegalStateException.class, () -> builder.expireAfterAccess(Duration.ofHours(1)));
   }
 
   @SuppressWarnings("ReturnValueIgnored")
@@ -341,8 +337,7 @@ public class CacheBuilderTest extends TestCase {
   @GwtIncompatible // java.time.Duration
   public void testRefresh_zero_duration() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
-    assertThrows(
-        IllegalArgumentException.class, () -> builder.refreshAfterWrite(java.time.Duration.ZERO));
+    assertThrows(IllegalArgumentException.class, () -> builder.refreshAfterWrite(Duration.ZERO));
   }
 
   @GwtIncompatible // refreshAfterWrite
@@ -355,10 +350,8 @@ public class CacheBuilderTest extends TestCase {
   @GwtIncompatible // java.time.Duration
   public void testRefresh_setTwice_duration() {
     CacheBuilder<Object, Object> builder =
-        CacheBuilder.newBuilder().refreshAfterWrite(java.time.Duration.ofHours(1));
-    assertThrows(
-        IllegalStateException.class,
-        () -> builder.refreshAfterWrite(java.time.Duration.ofHours(1)));
+        CacheBuilder.newBuilder().refreshAfterWrite(Duration.ofHours(1));
+    assertThrows(IllegalStateException.class, () -> builder.refreshAfterWrite(Duration.ofHours(1)));
   }
 
   public void testTicker_setTwice() {
