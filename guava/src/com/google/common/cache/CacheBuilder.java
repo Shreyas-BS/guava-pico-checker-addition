@@ -33,6 +33,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.j2objc.annotations.J2ObjCIncompatible;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
+import java.time.Duration;
 import java.util.ConcurrentModificationException;
 import java.util.IdentityHashMap;
 import java.util.Map;
@@ -722,7 +723,7 @@ public final class CacheBuilder<K, V> {
   @GwtIncompatible // java.time.Duration
   @SuppressWarnings("GoodTime") // java.time.Duration decomposition
   @CanIgnoreReturnValue
-  public CacheBuilder<K, V> expireAfterWrite(java.time.Duration duration) {
+  public CacheBuilder<K, V> expireAfterWrite(Duration duration) {
     return expireAfterWrite(toNanosSaturated(duration), TimeUnit.NANOSECONDS);
   }
 
@@ -794,7 +795,7 @@ public final class CacheBuilder<K, V> {
   @GwtIncompatible // java.time.Duration
   @SuppressWarnings("GoodTime") // java.time.Duration decomposition
   @CanIgnoreReturnValue
-  public CacheBuilder<K, V> expireAfterAccess(java.time.Duration duration) {
+  public CacheBuilder<K, V> expireAfterAccess(Duration duration) {
     return expireAfterAccess(toNanosSaturated(duration), TimeUnit.NANOSECONDS);
   }
 
@@ -875,7 +876,7 @@ public final class CacheBuilder<K, V> {
   @GwtIncompatible // java.time.Duration
   @SuppressWarnings("GoodTime") // java.time.Duration decomposition
   @CanIgnoreReturnValue
-  public CacheBuilder<K, V> refreshAfterWrite(java.time.Duration duration) {
+  public CacheBuilder<K, V> refreshAfterWrite(Duration duration) {
     return refreshAfterWrite(toNanosSaturated(duration), TimeUnit.NANOSECONDS);
   }
 
@@ -1118,7 +1119,7 @@ public final class CacheBuilder<K, V> {
    */
   @GwtIncompatible // java.time.Duration
   @SuppressWarnings("GoodTime") // duration decomposition
-  private static long toNanosSaturated(java.time.Duration duration) {
+  private static long toNanosSaturated(Duration duration) {
     // Using a try/catch seems lazy, but the catch block will rarely get invoked (except for
     // durations longer than approximately +/- 292 years).
     try {
