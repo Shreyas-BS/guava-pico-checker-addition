@@ -23,6 +23,8 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import javax.annotation.CheckForNull;
 
+import qual.*;
+
 /**
  * A wrapper class for unsigned {@code long} values, supporting arithmetic operations.
  *
@@ -39,13 +41,14 @@ import javax.annotation.CheckForNull;
  */
 @GwtCompatible(serializable = true)
 @ElementTypesAreNonnullByDefault
+@Immutable
 public final class UnsignedLong extends Number implements Comparable<UnsignedLong>, Serializable {
 
   private static final long UNSIGNED_MASK = 0x7fffffffffffffffL;
 
-  public static final UnsignedLong ZERO = new UnsignedLong(0);
-  public static final UnsignedLong ONE = new UnsignedLong(1);
-  public static final UnsignedLong MAX_VALUE = new UnsignedLong(-1L);
+  public static final @Immutable UnsignedLong ZERO = new UnsignedLong(0);
+  public static final @Immutable UnsignedLong ONE = new UnsignedLong(1);
+  public static final @Immutable UnsignedLong MAX_VALUE = new UnsignedLong(-1L);
 
   private final long value;
 
@@ -92,8 +95,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
   @CanIgnoreReturnValue
   public static UnsignedLong valueOf(BigInteger value) {
     checkNotNull(value);
-    checkArgument(
-        value.signum() >= 0 && value.bitLength() <= Long.SIZE,
+    checkArgument(value.signum() >= 0 && value.bitLength() <= Long.SIZE,
         "value (%s) is outside the range for an unsigned long value",
         value);
     return fromLongBits(value.longValue());
