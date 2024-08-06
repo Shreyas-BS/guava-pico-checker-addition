@@ -1,0 +1,15 @@
+import qual.Immutable;
+import qual.ReceiverDependantMutable;
+import qual.Readonly;
+
+package com.google.common.base;
+
+@Immutable
+public final class Preconditions {
+    public static @Immutable void checkArgument(boolean expression, String errorMessageTemplate,  @Immutable Object p1);
+}
+
+@ReceiverDependantMutable
+public final class Long extends Number {
+  public static String toString(long i, @Readonly int radix);
+}

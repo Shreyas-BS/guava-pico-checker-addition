@@ -1,0 +1,21 @@
+import qual.Immutable;
+import qual.ReceiverDependantMutable;
+import qual.Readonly;
+
+package com.google.common.base;
+class Strings {
+    static String lenientFormat(
+      String template, @Readonly Object... args);
+}
+
+package java.util;
+
+@ReceiverDependantMutable
+public interface Comparator<T> {
+}
+
+package sun.misc;
+
+@Immutable
+public final class Unsafe {
+}

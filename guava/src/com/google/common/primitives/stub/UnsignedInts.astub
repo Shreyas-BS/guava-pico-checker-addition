@@ -1,0 +1,15 @@
+import qual.Immutable;
+import qual.ReceiverDependantMutable;
+import qual.Readonly;
+
+package java.lang;
+
+@Readonly
+class Throwable {
+  Throwable initCause(@Readonly Throwable cause);
+}
+
+package java.util;
+@ReceiverDependantMutable
+public interface Comparator<T> {
+}
